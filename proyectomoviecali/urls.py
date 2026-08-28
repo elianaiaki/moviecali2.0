@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from peliculas import views          # nuevo: para poder usar views.inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('peliculas/', include('peliculas.urls')),
+    path('', views.inicio, name="inicio"),      # nuevo: ruta raíz
 ]
