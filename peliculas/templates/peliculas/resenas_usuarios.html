@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reseñas de usuarios</title>
+</head>
+<body>    
+    <a href="{% url 'inicio' %}">Volver al inicio</a> |
+    <div class="cabecera-pelicula">
+        <img src="{% static pelicula.imagen %}" width="200" alt="{{ pelicula.titulo }}">
+        <div class="info-pelicula">
+            <p>{{ pelicula.titulo }}</p>
+            <h2>Reseñas de usuarios:</h2>
+        </div>
+    </div>
+    <details style="margin-bottom: 20px;">
+        <summary style="cursor: pointer; padding: 5px; background: #eee; width: fit-content; border: 1px solid #ccc;">
+            Agregar reseña
+        </summary>
+        
+        <form method="POST" style="margin-top: 15px; border: 1px solid #ddd; padding: 15px; max-width: 400px;">
+            {% csrf_token %}
+            <p>
+                <label>Tu nombre de usuario:</label><br>
+                <input type="text" name="usuario" required>
+            </p>
+            <p>
+                <label>Título de la reseña:</label><br>
+                <input type="text" name="titulo" required>
+            </p>
+            <p>
+                <label>Calificación (1 al 10):</label><br>
+                <input type="number" name="calificacion" min="1" max="10" required>
+            </p>
+            <p>
+                <label>Comentario / Reseña:</label><br>
+                <textarea name="contenido" rows="4" required></textarea>
+            </p>
+            <button type="submit">Publicar Reseña</button>
+        </form>
+    </details>
+
+    <section>
+    {% for resena in resenas %}
+        <div class="resena">
+            <div>
+                <p><b>Calificación:</b> {{ resena.calificacion }}</p>
+                <img src="{% static resena.foto_usuario %}" width="40">
+                <p><b>{{ resena.usuario }} dice:</b></p>
+            </div>
+            
+            <h3>{{ resena.titulo }}</h3>
+            <p>"{{ resena.contenido }}"</p>
+            
+            <div class="acciones">
+                <button><b>Me gusta</b> {{ resena.likes }}</button>
+                <button><b>No me gusta</b> {{ resena.dislikes }}</button>
+                <a href="#" class="abrir-comentarios">{{ resena.comentarios_count }} Comentarios</a>
+                <button>Reportar reseña</button>
+            </div>
+
+            <div class="comentarios" style="display:none;">
+                <input type="text" placeholder="Escribe un comentario...">
+                <button class="cancelar" onclick="cerrarComentarios()">Cancelar</button>
+                <button class="comentar">Comentar</button>
+            </div>
+        </div>
+        <br><hr>
+    {% empty %}
+        <p>No hay reseñas publicadas para esta película aún.</p>
+    {% endfor %}
+</section>
+
+</body>
+</html>

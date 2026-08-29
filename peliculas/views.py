@@ -50,3 +50,62 @@ def detalle_pelicula(request, id):
         "reparto": reparto,
     }
     return render(request, "peliculas/detalle.html", contexto)
+
+#------------------------------------------------------------------------------------------------#
+# Lista global temporal (simula la base de datos) para que persista la informacion
+RESENAS_LISTA = [
+    {
+        'usuario': 'George_Allison',
+        'calificacion': '9.0 / 10',
+        'foto_usuario': 'recursos/imagenes/usuarios/usuario_1.jpg',
+        'titulo': 'BUENISIMA',
+        'contenido': 'F1 es un espectáculo visual imponente que redefine el cine de automovilismo...',
+        'likes': 100,
+        'dislikes': 18,
+        'comentarios_count': 50
+    },
+    {
+        'usuario': 'Cinefilo88',
+        'calificacion': '3.0 / 10',
+        'foto_usuario': 'recursos/imagenes/usuarios/usuario_2.jpg',
+        'titulo': 'REPETITIVA',
+        'contenido': 'Aunque la acción es impecable, la banda sonora de Hans Zimmer se siente algo repetitiva...',
+        'likes': 45,
+        'dislikes': 12,
+        'comentarios_count': 5
+    }
+]
+
+def detalle_resenas_pelicula(request, pelicula_id):
+    pelicula = {
+        'id': pelicula_id,
+        'titulo': 'F1 THE MOVIE',
+        'imagen': 'recursos/imagenes/peliculas/f1.jpg',
+        'anio': 2025,
+        'duracion': '2h 35min',
+        'puntuacion_promedio': 8.0,
+        'total_opiniones': 4506
+    }
+
+    if request.method == 'POST':
+        # Capturar la nueva reseña enviada por el formulario
+        nueva_resena = {
+            'usuario': request.POST.get('usuario', 'Usuario Anónimo'),
+            'calificacion': f"{request.POST.get('calificacion', '10')} / 10",
+            'foto_usuario': 'recursos/imagenes/usuarios/usuario_3.jpg', # Imagen por defecto
+            'titulo': request.POST.get('titulo'),
+            'contenido': request.POST.get('contenido'),
+            'likes': 0,
+            'dislikes': 0,
+            'comentarios_count': 0
+        }
+        # Insertar al inicio de la lista
+        RESENAS_LISTA.insert(0, nueva_resena)
+        return redirect('peliculas:resenas_pelicula', pelicula_id=pelicula_id)
+        
+
+    contexto = {
+        'pelicula': pelicula,
+        'resenas': RESENAS_LISTA
+    }
+    return render(request, 'peliculas/resenas_usuarios.html', contexto)
