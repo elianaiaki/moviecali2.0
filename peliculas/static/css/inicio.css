@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .catalogo-peliculas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -10,17 +9,4 @@
     height: 280px;
     object-fit: cover;
     border-radius: 8px;
-=======
-.catalogo-peliculas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-.card img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 8px;
->>>>>>> 8db193a48bf1087a47b230a985468263f6039225
 }
