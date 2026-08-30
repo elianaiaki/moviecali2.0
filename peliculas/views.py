@@ -8,7 +8,7 @@ peliculas = [
         "titulo": "F1: La Película",
         "anio": "2025",
         "duracion": "155",
-        "temporadas": "",
+        
         "calificacion": "8.0",
         "sinopsis": "Un piloto retirado vuelve a las pistas para mentorear a un joven talento.",
         "genero": "Drama, Acción",
@@ -23,7 +23,7 @@ peliculas = [
         "titulo": "Oppenheimer",
         "anio": "2023",
         "duracion": "180",
-        "temporadas": "",
+        
         "calificacion": "8.9",
         "sinopsis": "En tiempos de guerra, el físico J. Robert Oppenheimer lidera el Proyecto Manhattan, una iniciativa secreta para desarrollar la primera bomba atómica de la historia.",
         "genero": "Biografía, Drama, Historia",
@@ -53,7 +53,6 @@ def agregar_pelicula(request):
             "titulo": request.POST.get("titulo"),
             "anio": request.POST.get("anio"),
             "duracion": request.POST.get("duracion"),
-            "temporadas": request.POST.get("temporadas"),
             "calificacion": request.POST.get("calificacion"),
             "sinopsis": request.POST.get("sinopsis"),
             "genero": request.POST.get("genero"),
