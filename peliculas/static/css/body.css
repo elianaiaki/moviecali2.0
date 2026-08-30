@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     margin: 0;
     min-height: 100vh;
@@ -23,4 +24,31 @@ main {
     box-sizing: border-box;
     min-height: calc(100vh - 160px);
     margin-bottom: 15px;
+=======
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #22252d, #19407d);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+.btn {
+    background: #2a4f7a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.btn:hover { background: #3a6fa0; }
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 160px);
+    margin-bottom: 15px;
+>>>>>>> 8db193a48bf1087a47b230a985468263f6039225
 }

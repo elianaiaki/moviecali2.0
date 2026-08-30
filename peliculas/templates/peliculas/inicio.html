@@ -10,22 +10,18 @@
     <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
 </head>
 <body>
-    <header class="perfil">MovieCali</header>
-    <main>
-        <h1 class="titulo-principal">{{ titulo_pagina }}</h1>
-        <a href="{% url 'peliculas:agregar' %}" style="text-decoration:none">Agregar película</a>
-        <div class="catalogo-peliculas">
-        {% for pelicula in peliculas %}
-            <div class="card">
-                <img src="{{ pelicula.imagen }}" alt="Póster de {{ pelicula.titulo }}">
-                <p class="subtitulo-tarjeta">{{ pelicula.titulo }}</p>
-                <a href="{% url 'peliculas:resenas_pelicula' pelicula.id %}" class="btn">Ver película</a>
-            </div>
-        {% empty %}
-            <p>Todavía no hay películas cargadas.</p>
-        {% endfor %}
-        </div>
-    </main>
-    <footer class="footer"><p class="titulo-footer">MovieCali 2.0</p></footer>
+    <h1>{{ titulo_pagina }}</h1>
+    <p><a href="{% url 'peliculas:agregar' %}">Agregar película</a></p>
+
+    {% for pelicula in peliculas %}
+        <p>
+            <img src="{{ pelicula.imagen }}" width="200" alt="Póster de {{ pelicula.titulo }}">
+            {{ pelicula.titulo }}
+            <a href="{% url 'peliculas:resenas_pelicula' pelicula.id %}">Ver película</a>
+        </p>
+    {% empty %}
+        <p>Todavía no hay películas cargadas.</p>
+    {% endfor %}
+
 </body>
 </html>

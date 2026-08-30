@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .perfil {
     display: flex;
     align-items: center;
@@ -13,4 +14,21 @@
     display: flex;
     gap: 20px;
 }
+=======
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #001b2b;
+    padding: 15px 40px;
+    color: white;
+}
+.perfil img { width: 40px; height: 40px; border-radius: 50%; }
+.navbar-intranet {
+    background: #001b2b;
+    padding: 10px 40px;
+    display: flex;
+    gap: 20px;
+}
+>>>>>>> 8db193a48bf1087a47b230a985468263f6039225
 .navbar-intranet a { color: white; text-decoration: none; }

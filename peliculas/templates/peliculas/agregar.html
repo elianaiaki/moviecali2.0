@@ -2,33 +2,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ titulo_pagina }}</title>
-    <link rel="stylesheet" href="{% static 'css/body.css' %}">
-    <link rel="stylesheet" href="{% static 'css/headerBoostrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/agregar.css' %}">
+<meta charset="UTF-8">
+<title>{{ titulo_pagina }}</title>
 </head>
 <body>
-    <header class="perfil"><p>Usuario</p></header>
-    <main>
-        <h1 class="titulo-principal">{{ titulo_pagina }}</h1>
-        <form method="post" class="categoria-bloque">
-            {% csrf_token %}
-            <label class="form-label">Imagen (URL): <input type="url" name="imagen"></label>
-            <label class="form-label">Título: <input type="text" name="titulo" required></label>
-            <label class="form-label">Año de estreno: <input type="number" name="anio" required></label>
-            <label class="form-label">Duración (min): <input type="number" name="duracion"></label>
-            <label class="form-label">Calificación general: <input type="number" step="0.1" name="calificacion"></label>
-            <label class="form-label">Sinopsis: <textarea name="sinopsis"></textarea></label>
-            <label class="form-label">Género: <input type="text" name="genero" required></label>
-            <label class="form-label">Reparto (separado por comas): <textarea name="reparto"></textarea></label>
-            <label class="form-label">Clasificación por edad: <input type="text" name="clasificacion"></label>
-            <label class="form-label">Plataforma: <input type="text" name="plataforma"></label>
-            <button type="submit" class="accion_publicar">Guardar</button>
-            <a href="{% url 'inicio' %}" class="btn">Volver al inicio</a>
-        </form>
-    </main>
-<footer class="footer"><p class="titulo-footer">MovieCali 2.0</p></footer>
+<h1>{{ titulo_pagina }}</h1>
+<form method="post">
+    {% csrf_token %}
+
+    <label>Imagen (URL): <input type="url" name="imagen"></label><br>
+    <label>Título: <input type="text" name="titulo" required></label><br>
+    <label>Año de estreno: <input type="number" name="anio" required></label><br>
+    <label>Duración (min): <input type="number" name="duracion"></label><br>
+    <label>Cantidad de temporadas: <input type="number" name="temporadas"></label><br>
+    <label>Calificación general: <input type="number" step="0.1" name="calificacion"></label><br>
+    <label>Sinopsis: <textarea name="sinopsis"></textarea></label><br>
+    <label>Género: <input type="text" name="genero" required></label><br>
+    <label>Reparto (separado por comas): <textarea name="reparto"></textarea></label><br>
+    <label>Clasificación por edad: <input type="text" name="clasificacion"></label><br>
+    <label>Plataforma: <input type="text" name="plataforma"></label><br>
+
+    <button type="submit">Guardar</button>
+    <a href="{% url 'inicio' %}">Volver al inicio</a> |
+</form>
 </body>
 </html>

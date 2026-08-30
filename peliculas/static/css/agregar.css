@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 .formulario-agregar { max-width: 600px; margin: auto; }
 .formulario-agregar label { display: block; margin-top: 12px; color: white; }
 .formulario-agregar input, .formulario-agregar textarea, .formulario-agregar select {
     width: 100%; padding: 10px; border-radius: 6px; border: none; margin-top: 5px; box-sizing: border-box;
+=======
+.formulario-agregar { max-width: 600px; margin: auto; }
+.formulario-agregar label { display: block; margin-top: 12px; color: white; }
+.formulario-agregar input, .formulario-agregar textarea, .formulario-agregar select {
+    width: 100%; padding: 10px; border-radius: 6px; border: none; margin-top: 5px; box-sizing: border-box;
+>>>>>>> 8db193a48bf1087a47b230a985468263f6039225
 }
