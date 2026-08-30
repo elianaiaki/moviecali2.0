@@ -6,14 +6,17 @@
     <title>Reseñas de usuarios</title>
 </head>
 <body>    
-    <a href="{% url 'inicio' %}">Volver al inicio</a> |
+    <a href="{% url 'inicio' %}">Volver al inicio</a> 
+
+    {% if pelicula %}
     <div class="cabecera-pelicula">
-        <img src="{% static pelicula.imagen %}" width="200" alt="{{ pelicula.titulo }}">
+        <img src="{{ pelicula.imagen }}" width="200" alt="{{ pelicula.titulo }}">
         <div class="info-pelicula">
             <p>{{ pelicula.titulo }}</p>
             <h2>Reseñas de usuarios:</h2>
         </div>
     </div>
+
     <details style="margin-bottom: 20px;">
         <summary style="cursor: pointer; padding: 5px; background: #eee; width: fit-content; border: 1px solid #ccc;">
             Agregar reseña
@@ -54,10 +57,10 @@
             <p>"{{ resena.contenido }}"</p>
             
             <div class="acciones">
-                <button><b>Me gusta</b> {{ resena.likes }}</button>
-                <button><b>No me gusta</b> {{ resena.dislikes }}</button>
+                <button><b>Reportes</b> {{ resena.reportes }}</button>
+                <button>Eliminar</button>
                 <a href="#" class="abrir-comentarios">{{ resena.comentarios_count }} Comentarios</a>
-                <button>Reportar reseña</button>
+                <button>Ocultar reseña</button>
             </div>
 
             <div class="comentarios" style="display:none;">
@@ -70,7 +73,11 @@
     {% empty %}
         <p>No hay reseñas publicadas para esta película aún.</p>
     {% endfor %}
-</section>
+    </section>
+
+    {% else %}
+    <p>Película no encontrada.</p>
+    {% endif %}
 
 </body>
 </html>

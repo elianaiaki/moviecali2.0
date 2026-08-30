@@ -8,10 +8,16 @@
 <body>
     <h1>{{ titulo_pagina }}</h1>
     <p><a href="{% url 'peliculas:agregar' %}">Agregar película</a></p>
-    <p>
-        <img src="{% static 'recursos/imagenes/peliculas/f1.jpg' %}" width="150" alt="F1 Película">
-        <a href="{% url 'peliculas:resenas_pelicula' 1 %}">Ver pelicula</a>
-    </p>
+
+    {% for pelicula in peliculas %}
+        <p>
+            <img src="{{ pelicula.imagen }}" width="200" alt="Póster de {{ pelicula.titulo }}">
+            {{ pelicula.titulo }}
+            <a href="{% url 'peliculas:resenas_pelicula' pelicula.id %}">Ver película</a>
+        </p>
+    {% empty %}
+        <p>Todavía no hay películas cargadas.</p>
+    {% endfor %}
 
 </body>
 </html>
