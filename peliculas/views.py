@@ -8,7 +8,6 @@ peliculas = [
         "titulo": "F1: La Película",
         "anio": "2025",
         "duracion": "155",
-        
         "calificacion": "8.0",
         "sinopsis": "Un piloto retirado vuelve a las pistas para mentorear a un joven talento.",
         "genero": "Drama, Acción",

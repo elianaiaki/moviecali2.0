@@ -1,17 +1,28 @@
+{% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Reseñas de usuarios</title>
-    <link rel="stylesheet" href="{% static 'css/body.css' %}">
+    <title>{%block title%}Reseñas de usuarios{%endblock%}</title>
+    <!--<link rel="stylesheet" href="{% static 'css/body.css' %}">
     <link rel="stylesheet" href="{% static 'css/headerBoostrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/resenas_usuarios.css' %}">
+-->
 </head>
 <body>
-    <header class="perfil"><a href="{% url 'inicio' %}" class="btn">Volver al inicio</a></header>
+    {%block content%}
+    <header>
+        
+        <nav>
+            <a href="{% url 'inicio' %}" class="btn">Volver al inicio</a>
+        </nav>
+    
+    </header>
+    <!--<header class="perfil"><a href="{% url 'inicio' %}" class="btn">Volver al inicio</a></header>-->
     <main>
+        
         {% if pelicula %}
         <div class="cabecera-pelicula" style="display:flex; gap:20px; align-items:center;">
             <img src="{{ pelicula.imagen }}" width="200" style="border-radius:10px;" alt="{{ pelicula.titulo }}">
@@ -48,7 +59,8 @@
         {% empty %}<p>No hay reseñas publicadas.</p>{% endfor %}
         </section>
         {% else %}<p>Película no encontrada.</p>{% endif %}
+        {%endblock%}
     </main>
-    <footer class="footer"><p class="titulo-footer">MovieCali 2.0</p></footer>
+    <!--<footer class="footer"><p class="titulo-footer">MovieCali 2.0</p></footer>-->
 </body>
 </html>
