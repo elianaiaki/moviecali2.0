@@ -1,0 +1,166 @@
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
+from .models import Pelicula, Resena
+
+peliculas = [
+    {
+        "id": 1,
+        "imagen": "https://www.cinematerial.com/p/297x/l94wgadr/f1-the-movie-movie-poster-md.jpg?v=1748905004",
+        "titulo": "F1: La Película",
+        "anio": "2025",
+        "duracion": "155",
+        "calificacion": "8.0",
+        "sinopsis": "Un piloto retirado vuelve a las pistas para mentorear a un joven talento.",
+        "genero": "Drama, Acción",
+        "reparto": "Brad Pitt, Damson Idris, Kerry Condon",
+        "clasificacion": "PG-13",
+        "plataforma": "Cines",
+    },
+    {
+    
+        "id": 2,
+        "imagen": "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/H2DVBWCFAZGYDFWWN4TEASWRZI.jpg",
+        "titulo": "Oppenheimer",
+        "anio": "2023",
+        "duracion": "180",
+        
+        "calificacion": "8.9",
+        "sinopsis": "En tiempos de guerra, el físico J. Robert Oppenheimer lidera el Proyecto Manhattan, una iniciativa secreta para desarrollar la primera bomba atómica de la historia.",
+        "genero": "Biografía, Drama, Historia",
+        "reparto": "Cillian Murphy, Emily Blunt, Matt Damon, Robert Downey Jr.",
+        "clasificacion": "R",
+        "plataforma": "Max"
+    }
+    
+]
+
+# Movi la vista inicio() a proyecto_MC/views.py,
+# por que es el inicio general del proyecto.
+
+# Las demás vistas estan bien en aplicación porque son funcionalidades específicas de películas.
+
+#refactorizamos
+def agregar_pelicula(request):
+
+    # GET: mostrar el formulario
+    if request.method == "GET":
+        contexto = {"titulo_pagina": "Agregar nueva pelicula"}
+        return render(request, "peliculas/agregar.html", contexto)
+
+    # POST: procesar los datos enviados por el formulario
+    if request.method == "POST":
+        id_mas_alto = 0
+
+        for p in peliculas:
+            if p["id"] > id_mas_alto:
+                id_mas_alto = p["id"]
+
+        proximo_id = id_mas_alto + 1
+
+        pelicula = {
+            "id": proximo_id,
+            "imagen": request.POST.get("imagen"),
+            "titulo": request.POST.get("titulo"),
+            "anio": request.POST.get("anio"),
+            "duracion": request.POST.get("duracion"),
+            "calificacion": request.POST.get("calificacion"),
+            "sinopsis": request.POST.get("sinopsis"),
+            "genero": request.POST.get("genero"),
+            "reparto": request.POST.get("reparto"),
+            "clasificacion": request.POST.get("clasificacion"),
+            "plataforma": request.POST.get("plataforma"),
+        }
+
+        peliculas.append(pelicula)
+        return redirect("peliculas:detalle", id=pelicula["id"])
+    
+
+def detalle_pelicula(request, id):
+    # busco la pelicula por id dentro de la lista en memoria
+    pelicula = None
+    for p in peliculas:
+        if p["id"] == id:
+            pelicula = p
+            break
+
+    reparto = []
+    # Verifica que la película exista y que tenga datos en 'reparto'
+    if pelicula is not None and pelicula["reparto"] is not None and pelicula["reparto"] != "":
+        
+        # Corta el texto por las comas
+        lista_de_actores = pelicula["reparto"].split(",")
+        
+        for nombre in lista_de_actores:
+            # Elimina espacios vacios a los lados
+            nombre_limpio = nombre.strip()
+            
+            #agrega el nombre si NO es un texto vacío
+            if nombre_limpio != "":
+                reparto.append(nombre_limpio)
+        
+    contexto = {
+        "titulo_pagina": "Detalle de la pelicula",
+        "pelicula": pelicula,
+        "reparto": reparto,
+    }
+    return render(request, "peliculas/detalle.html", contexto)
+
+#------------------------------------------------------------------------------------------------#
+# Lista global temporal (simula la base de datos) para que persista la informacion
+RESENAS_LISTA = [
+    {
+        'pelicula_id': 1,
+        'usuario': 'George_Allison',
+        'calificacion': '9.0 / 10',
+        'foto_usuario': 'peliculas/recursos/imagenes/usuarios/usuario_1.jpg',
+        'titulo': 'BUENISIMA',
+        'contenido': 'F1 es un espectáculo visual imponente que redefine el cine de automovilismo...',
+        'reportes': 0,
+        'comentarios_count': 50
+    },
+    {
+        'pelicula_id': 1,
+        'usuario': 'Cinefilo88',
+        'calificacion': '3.0 / 10',
+        'foto_usuario': 'peliculas/recursos/imagenes/usuarios/usuario_2.jpg',
+        'titulo': 'REPETITIVA',
+        'contenido': 'Aunque la acción es impecable, la banda sonora de Hans Zimmer se siente algo repetitiva...',
+        'reportes': 2,
+        'comentarios_count': 5
+    }
+]
+
+def detalle_resenas_pelicula(request, id):
+    pelicula = get_object_or_404(Pelicula, id=id) #si un id de una pelicula no se encuentra, devuelve 404 
+
+    if request.method == "GET":
+        resenas_de_esta_pelicula = pelicula.resenas.order_by("-id_resena") #devuelve solo las reseñas de esa pelicula, le agrega el criterio de orden , descendente (la mas reciente primero)
+
+        contexto = {
+            "pelicula": pelicula,
+            "resenas": resenas_de_esta_pelicula,
+        }
+        
+        return render(request, "peliculas/resenas_usuarios.html", contexto)
+
+    if request.method == "POST":
+        nueva_resena = Resena(
+            pelicula=pelicula,
+            nombre_usuario=request.POST.get("usuario", "Usuario Anónimo"),
+            texto=request.POST.get("contenido"),
+            calificacion=request.POST.get("calificacion"),
+        )
+        try:#dispara las validacion para el conteo de palabras definidad en models con clean()
+            nueva_resena.full_clean()
+            nueva_resena.save()
+        except ValidationError as errores:#si algo falla , vuelve a renderizar el mismo template pasando errores en el contexto en vez de guardar datos invalidos.
+            contexto = {
+                "pelicula": pelicula,
+                "resenas": pelicula.resenas.order_by("-id_resena"),
+                "errores": errores.message_dict,
+            }
+            return render(request, "peliculas/resenas_usuarios.html", contexto)
+
+        return redirect("peliculas:resenas_pelicula", id=id)
