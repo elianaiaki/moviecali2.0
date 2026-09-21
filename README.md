@@ -5,28 +5,6 @@
 MovieCali es una aplicación web para gestionar un catálogo de películas y las entidades que lo componen: actores, directores y reseñas. Permite registrar películas, consultar la ficha completa de cada título y publicar opiniones, garantizando la consistencia de los datos mediante restricciones a nivel de modelo y de base de datos.
 
 El proyecto fue desarrollado como **Trabajo Integrador** y aplica de forma progresiva los contenidos centrales de Django: la arquitectura **MVT (Model-View-Template)**, el sistema de rutas, el motor de plantillas (DTL), el ORM, las migraciones y el procesamiento de formularios.
-
----
-
-## Tabla de contenidos
-
-1. [Características principales](#-características-principales)
-2. [Tecnologías](#-tecnologías)
-3. [Arquitectura](#-arquitectura)
-4. [Estructura del proyecto](#-estructura-del-proyecto)
-5. [Modelo de datos](#-modelo-de-datos)
-6. [Reglas de negocio, validaciones y restricciones](#-reglas-de-negocio-validaciones-y-restricciones)
-7. [Rutas y navegación](#-rutas-y-navegación)
-8. [Ciclo de vida de una solicitud](#-ciclo-de-vida-de-una-solicitud)
-9. [Sistema de templates](#-sistema-de-templates)
-10. [Consultas con el ORM](#-consultas-con-el-orm)
-11. [Migraciones](#-migraciones)
-12. [Instalación y ejecución](#-instalación-y-ejecución)
-13. [Decisiones de diseño](#-decisiones-de-diseño)
-14. [Estado del proyecto y próximos pasos](#-estado-del-proyecto-y-próximos-pasos)
-15. [Contexto académico](#-contexto-académico)
-16. [Equipo y licencia](#-equipo-y-licencia)
-
 ---
 
 ## Características principales
