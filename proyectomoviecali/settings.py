@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-80f!ql#ra3)fqj$s1dhn17n9b%k9o0gnz^x9g1n+y)rsjy(l=n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# agregue esto por que sino no funcionaba el publicar reseña
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'peliculas',
+    "peliculas.apps.PeliculasConfig",
 ]
 
 MIDDLEWARE = [
